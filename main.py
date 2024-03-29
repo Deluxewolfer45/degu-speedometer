@@ -266,6 +266,6 @@ async def handle_request(reader, writer):
         print('connection error ' + str(e.errno) + " " + str(e))
 
 loop = uasyncio.get_event_loop()
-loop.create_task(uasyncio.start_server(handle_request, "0.0.0.0", 80))
+#loop.create_task(uasyncio.start_server(handle_request, "0.0.0.0", 80))
 loop.create_task(lcd_screen(hall_effect_stats, check))
 loop.run_forever()
