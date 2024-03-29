@@ -1,0 +1,268 @@
+html {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0.5vh 0 0.5vh 0;
+  padding: 0;
+  font-family:'Montserrat', sans-serif;
+}
+
+.home-panel{
+  background-color: #794eab;
+  height: 101vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  scroll-snap-align: start;
+  align-items: center;
+  justify-content: center;
+}
+
+.run-stats {
+  display: block;
+  text-align: center;
+}
+
+.animation-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.preload-image {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  visibility: hidden;
+}
+
+/* Use the hidden image to preload your animation image */
+.preload-image::before {
+  content: url("/degu_running_tiles.png");
+}
+
+.running {
+  width: 75vmin;
+  height: 75vmin;
+  animation: running-animation 0.5s steps(9) infinite;
+  background: url("/degu_running_tiles.png") 0 0 no-repeat;
+  background-size: 675vmin 75vmin;
+}
+
+.sleep {
+  width: 70vmin;
+  height: 50vmin;
+  animation: sleeping-animation 1s steps(5) infinite;
+  background: url("/degu_sleep_tiles.png") 0 0 no-repeat;
+  background-size: 350vmin 50vmin;
+}
+
+@keyframes running-animation {
+  from {
+     background-position: 0 0;
+  }
+  to {
+     background-position: -675vmin 0;
+  }
+}
+
+@keyframes sleeping-animation {
+  from {
+     background-position: 0 0;
+  }
+  to {
+     background-position: -350vmin 0;
+  }
+}
+
+.stats-container{
+  background-color: #794eab27;
+  display: grid;
+  grid-template-rows: 100vh 50vh 50vh;
+  grid-template-columns: 99vw;
+  grid-template-areas:
+  "All-Time"
+  "Activity"
+  "Frequency"
+}
+
+.recent-select {
+  position: relative;
+  width: auto;
+}
+
+.recent-select select{display: none; /*hide original SELECT element:*/}
+
+.select-selected {
+  background-color: #794eab00;;
+  font-size: 1.4rem;
+}
+
+/*style the arrow inside the select element:*/
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 20px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #000000 transparent transparent transparent;
+}
+
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #000000 transparent;
+  top: 7px;
+}
+
+/*style the items (options), including the selected item:*/
+.select-items div,.select-selected {
+  padding: 8px 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/*style items (options):*/
+.select-items {
+  position: absolute;
+  font-size: 1rem;
+  background-color: #ffffff;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+/*hide the items when the select box is closed:*/
+.select-hide {display: none;}
+.select-items div:hover, .same-as-selected {background-color: #0000001b;}
+
+.all-time-panel {
+  grid-area: All-Time;
+  scroll-snap-align: start;
+  margin: 0 0 0 0;
+  display: grid;
+  grid-template-rows: 50vh 50vh;
+  grid-template-columns: 99vw;
+  grid-template-areas:
+  "All-Time-All-Time"
+  "All-Time-Records"
+}
+
+.collapsible {
+  background-color: #794eab00;
+  color: black;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 1.4rem;
+  font-family:'Montserrat', sans-serif;
+}
+
+.collapsible:after {
+  color: black;
+  border: none;
+  content: "+"; /* Unicode character for "plus" sign (+) */
+  font-size: 1.4rem;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "-"; /* Unicode character for "minus" sign (-) */
+  font-size: 1.4rem;
+}
+
+.record-hide {display: none;}
+
+.all-time {
+  grid-area: All-Time-All-Time;
+  margin: 0 2vw 0 2vw;
+}
+
+.records {
+  grid-area: All-Time-Records;
+  margin: 0 2vw 0 2vw;
+  color: black;
+}
+
+.record-highlight {
+  font-weight: bold;
+}
+
+.activity-panel {
+  grid-area: Activity;
+  scroll-snap-align: start;
+  text-align: center;
+  margin: 0 2vw 0 2vw;
+}
+
+.frequency-panel {
+  grid-area: Frequency;
+  text-align: center;
+  margin: 0 2vw 0 2vw;
+}
+
+.activity-chart {
+  width: 100%;
+  height: 80%;
+} 
+
+.frequency-graph {
+  width: 100%;
+  height: 80%;
+} 
+
+table.all-time-table {
+  font-size: 16px;
+  vertical-align: top; 
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+}
+
+.small-class{
+  font-size: 0.6rem;
+  color: #979797;
+}
+
+.days-active{
+  display: inline-block; 
+  vertical-align: top; 
+  margin: 0 0 0 0;
+  padding: 0 0 0 8px;
+  color: black;
+  font-size: 0.6rem;
+}
+
+table.all-time-table td:nth-child(2)  {white-space: nowrap;}
+td.all-time-table {padding: 0.5em;}
+td.all-time-table:nth-child(odd){text-align: left;}
+td.all-time-table:nth-child(even){text-align: right;}
+tr.all-time-table:nth-child(even) {background-color: #00000010;}
+
+@media (min-width: 800px){
+  .stats-container{
+    grid-template-columns: 40vw 60vw;
+    grid-template-rows: 50vh 50vh;
+    grid-template-areas:
+    "All-Time Activity"
+    "All-Time Frequency "
+  }
+
+  .all-time-panel {
+    grid-template-columns: 40vw;
+  }

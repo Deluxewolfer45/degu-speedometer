@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Degu Speedometer</title>
+<link rel="stylesheet" type="text/css" href='mystyle.css'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<meta name="description" content="Degu Speedometer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="home-panel">
+<div class="preload-image"></div>
+<div class="animation-container">
+    <div id = "animation"></div>
+</div>
+<div id="last_run_time" class="run-stats"></div>
+</div>
+<div class="stats-container">
+<div class="all-time-panel">
+<div class="all-time">
+<div class="recent-select">
+<select id="all_time_dropdown">
+<option value="0" selected="selected">All Time</option>
+<option value="1">Avg / Day</option>
+</select>
+</div>
+<div id="start_date" class="days-active"> Days Active: </div><div id="days_active" class="days-active">0</div>
+<table class="all-time-table">
+<tr class="all-time-table">
+<td class="all-time-table">Distance </td>
+<td class="all-time-table"><div id="distance_all_time"> 0.0 km </div><div id="rotations_all_time" class="small-class">120,000 Wheel Rotations</div></td>
+</tr class="all-time-table">
+<tr class="all-time-table">
+<td class="all-time-table">Time</td>
+<td class="all-time-table"><div id="time_all_time"> 0 h </div></td>
+</tr class="all-time-table">
+<tr class="all-time-table">
+<td class="all-time-table">Avg Speed</td>
+<td class="all-time-table"><div id="avg_speed_all_time"> 0.0 km/h </div></td>
+</tr class="all-time-table">
+<tr class="all-time-table">
+<td class="all-time-table">Runs</td>
+<td class="all-time-table"><div id="runs_all_time"> 0 </div></td>
+</tr class="all-time-table">
+<tr class="all-time-table">
+<td class="all-time-table">Calories</td>
+<td class="all-time-table"><div id="calories_all_time"> 0 </div><div id="peanuts_all_time" class="small-class">1137 Peanuts</div></td>
+</tr class="all-time-table">
+</table>
+</div>
+<div class="records">
+<button type="button" class="collapsible">Records</button>
+<table class="all-time-table">
+<tr id = "top_speed" class="all-time-table">
+<td id = "top_speed_label" class="all-time-table">Top Speed</td>
+<td class="all-time-table"><div id="top_speed_record"> 0.0 km/h </div><div id="top_speed_record_date" class="small-class record-date record-hide">Set 12:03 21/06/23</div></td>
+</tr class="all-time-table">
+<tr id = "10m_record" class="all-time-table">
+<td id = "10m_record_label" class="all-time-table">Fastest 10m</td>
+<td class="all-time-table"><div id="fastest_10m_record"> 0.00 sec </div><div id="fastest_10m_record_date" class="small-class record-date record-hide">Set 12:03 21/06/23</div></td>
+</tr class="all-time-table">
+<tr id = "100m_record" class="all-time-table">
+<td id = "100m_record_label" class="all-time-table">Fastest 100m</td>
+<td class="all-time-table"><div id="fastest_100m_record"> 0.00 sec </div><div id="fastest_100m_record_date" class="small-class record-date record-hide">Set 12:03 21/06/23</div></td>
+</tr class="all-time-table">
+<tr id = "longest_run" class="all-time-table">
+<td class="all-time-table"><div id = "longest_run_label">Longest Run</div></td>
+<td class="all-time-table"><div id="longest_run_dist_time"> 0 m </div><div id="longest_run_date" class="small-class record-date record-hide"></div></td>
+</tr class="all-time-table">
+<tr id = "max_distance_day" class="all-time-table">
+<td id = "max_distance_day_label" class="all-time-table">Furthest Distance Covered in a Day</td>
+<td class="all-time-table"><div id="max_distance_day_record"> 0 km </div><div id="max_distance_day_record_date" class="small-class record-date record-hide">Set 12:03 21/06/23</div></td>
+</tr class="all-time-table">
+</table>
+</div>
+</div>
+<div class="activity-panel">
+<div class="recent-select">
+<select id="activity_dropdown">
+<option value="0" selected="selected">Activity by Hour of the Day</option>
+<option value="1">Activity by Month</option>
+</select>
+</div>
+<div class="activity-chart">
+<canvas id="activity-chart"></canvas>
+</div>
+</div>
+<div class="frequency-panel">
+<div class="recent-select">
+<select id="frequency_dropdown">
+<option value="0" selected="selected">Running Speed</option>
+<option value="1">Run Distance</option>
+<option value="2">Run Duration</option>
+</select>
+</div>
+<div class="frequency-graph">
+<canvas id="frequency-graph"></canvas>
+</div>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+<script src="website_scripts.js"></script>
+</body>
+</html>
