@@ -4,6 +4,7 @@ import _thread
 import network
 import math
 import time
+import ntptime
 import os
 import array
 from request_parser import RequestParser
@@ -20,7 +21,8 @@ GOLD = display.create_pen(255,215,0)
    
 protocol = b"HTTP/1.1"
 server = b"speedydegus"
-    
+
+ntptime.settime()
 wifi_connect()
 
 hall_effect_stats  = hallEffectStats()
