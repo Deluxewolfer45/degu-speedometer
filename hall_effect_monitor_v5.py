@@ -258,8 +258,7 @@ class hallEffectStats:
                     
                     # Recording how date has changed, 1 = No Change, 0 = Change
                     date_check = 1 if self.old_date[1] == new_date[1] else 0
-
-                    self.old_date = new_date
+                    self.old_date = new_date[:] # Copies old date
                     
                     # Resets recent stats according to how the date has changed
                     if date_check == 0:

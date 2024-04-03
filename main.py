@@ -1,4 +1,5 @@
 import gc
+import machine
 import uasyncio
 import _thread
 import network
@@ -176,8 +177,9 @@ async def lcd_screen(hall_effect_stats, check):
                     display.clear()
                     
                 display.set_pen(BLACK)
-                display.rectangle(10, 40, 200, 20)
+                display.rectangle(170, 40, 150, 185)
                 display.set_pen(WHITE)
+                
                 display.text("Today", 110, 10, 320, 4)
                 display.text("Distance:", 10, 60, 320, 3)
                 display.text(str(round(hall_effect_stats.distance_today)) + " m", 180, 60, 320, 3)
