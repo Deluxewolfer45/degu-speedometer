@@ -1,4 +1,4 @@
-import utime
+import time
 
 try:
     import usocket as socket
@@ -15,7 +15,7 @@ host = "pool.ntp.org"
 timeout = 1
 
 
-def time():
+def get_time():
     NTP_QUERY = bytearray(48)
     NTP_QUERY[0] = 0x1B
     addr = socket.getaddrinfo(host, 123)[0][-1]
@@ -28,7 +28,7 @@ def time():
         s.close()
     val = struct.unpack("!I", msg[40:44])[0]
 
-    EPOCH_YEAR = utime.gmtime(0)[0]
+    EPOCH_YEAR = time.gmtime(0)[0]
     if EPOCH_YEAR == 2000:
         # (date(2000, 1, 1) - date(1900, 1, 1)).days * 24*60*60
         NTP_DELTA = 3155673600
@@ -43,8 +43,18 @@ def time():
 
 # There's currently no timezone support in MicroPython, and the RTC is set in UTC time.
 def settime():
-    t = time()
+    t = get_time()
     import machine
 
-    tm = utime.gmtime(t)
+    tm = time.gmtime(t)
+    
+    # Calculates time in March and October for the year to change clocks for daylight savings time
+    mar_dst = time.mktime((tm[0], 3, (31 - (int(5 * tm[0]/4 + 4)) % 7), 1, 0, 0, 0, 0, 0))
+    oct_dst = time.mktime((tm[0], 10, (31 - (int(5 * tm[0]/4 + 1)) % 7), 1, 0, 0, 0, 0, 0))
+    
+    # If after March change time and before October change time
+    if mar_dst < t < oct_dst:               
+        t = t + 3600 # Add one hour
+        tm = time.gmtime(t)
+    
     machine.RTC().datetime((tm[0], tm[1], tm[2], tm[6] + 1, tm[3], tm[4], tm[5], 0))

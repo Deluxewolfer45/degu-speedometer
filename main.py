@@ -23,10 +23,10 @@ GOLD = display.create_pen(255,215,0)
 protocol = b"HTTP/1.1"
 server = b"speedydegus"
 
-ntptime.settime()
 wifi_connect()
+ntptime.settime()
 
-hall_effect_stats  = hallEffectStats()
+hall_effect_stats = hallEffectStats()
 second_thread = _thread.start_new_thread(hall_effect_stats.monitor, ())
 
 check = array.array('I', [0, 0, 0, 0])
