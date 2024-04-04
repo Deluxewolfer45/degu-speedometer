@@ -294,7 +294,7 @@ class hallEffectStats:
                         
                         if self.date[2] == mar_day_dst:
                             dst_check = "Mar"
-                        elif self.date[3] == mar_day_dst:
+                        elif self.date[2] == oct_day_dst:
                             dst_check = "Oct"
                     
                     self.last_run_time = time.ticks_diff(time.ticks_ms(), end_run_time)
