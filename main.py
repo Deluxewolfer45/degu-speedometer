@@ -1,6 +1,6 @@
 import gc
 import machine
-import uasyncio
+import asyncio
 import _thread
 import network
 import math
@@ -193,7 +193,7 @@ async def lcd_screen(hall_effect_stats, check):
                 display.update()
                 check[1] += 1
                 
-            await uasyncio.sleep(0)
+            await asyncio.sleep(0)
              
         except KeyboardInterrupt:
             machine.reset()    
@@ -269,7 +269,7 @@ async def handle_request(reader, writer):
     except OSError as e:
         print('connection error ' + str(e.errno) + " " + str(e))
 
-loop = uasyncio.get_event_loop()
-#loop.create_task(uasyncio.start_server(handle_request, "0.0.0.0", 80))
+loop = asyncio.get_event_loop()
+loop.create_task(asyncio.start_server(handle_request, "0.0.0.0", 80))
 loop.create_task(lcd_screen(hall_effect_stats, check))
 loop.run_forever()
