@@ -5,7 +5,6 @@ import gc
 import json
 import os
 import array
-import ntptime
 
 class hallEffectStats:
     def __init__(self):
@@ -134,7 +133,6 @@ class hallEffectStats:
         peanut_calories = 2.95 # Assuming 1 peanut is 0.5g
         self.wheel_distance = wheel_diameter * math.pi
         no_speeds = 26 # Number of speeds to record in frequency array
-        dst_check = "" # Check for changing time for daylight savings time
         
         # Hall Effect
         hall_effect = machine.Pin(22, machine.Pin.IN)
@@ -260,21 +258,8 @@ class hallEffectStats:
                     
                     # Recording how date has changed, 1 = No Change, 0 = Change
                     date_check = 1 if self.old_date[1] == new_date[1] else 0
-                    self.old_date = new_date[:] # Copies old date
-                    
-                    # If last Sunday in March:
-                    if dst_check == "Mar":
-                        # If 1am
-                        if self.date[3] == 1:
-                            machine.RTC().datetime((self.date[0], self.date[1], self.date[2], self.date[6], 2, 0, 0, 0))
-                            dst_check = "" # Reset dst_check
-                    
-                    # If last Sunday in October:
-                    elif dst_check == "Oct":
-                        # If 2am
-                        if self.date[3] == 2:
-                            machine.RTC().datetime((self.date[0], self.date[1], self.date[2], self.date[6], 1, 0, 0, 0))
-                            dst_check = "" # Reset dst_check
+
+                    self.old_date = new_date
                     
                     # Resets recent stats according to how the date has changed
                     if date_check == 0:
@@ -287,15 +272,6 @@ class hallEffectStats:
                         self.new_record_day = ["", "", "", "", ""]
                         self.json_save(self.json_file)
                         self.json_save("data_backup.json")
-                        
-                        # Calculates day in March and October for the year to change clocks for daylight savings time
-                        mar_day_dst = (31 - (int(5 * self.date[0]/4 + 4)) % 7)
-                        oct_day_dst = (31 - (int(5 * self.date[0]/4 + 1)) % 7)
-                        
-                        if self.date[1] == 3 and self.date[2] == mar_day_dst:
-                            dst_check = "Mar"
-                        elif self.date[1] == 10 and self.date[2] == oct_day_dst:
-                            dst_check = "Oct"
                     
                     self.last_run_time = time.ticks_diff(time.ticks_ms(), end_run_time)
                     
@@ -432,5 +408,5 @@ class hallEffectStats:
             except KeyboardInterrupt:
                  break
                 
-#hall_effect_stats = hallEffectStats()
+#hall_effect_stats  = hallEffectStats()
 #hall_effect_stats.monitor()
