@@ -5,7 +5,6 @@ import _thread
 import network
 import math
 import time
-import ntptime
 import os
 import array
 from request_parser import RequestParser
@@ -22,11 +21,10 @@ GOLD = display.create_pen(255,215,0)
    
 protocol = b"HTTP/1.1"
 server = b"speedydegus"
-
+    
 wifi_connect()
-ntptime.settime()
 
-hall_effect_stats = hallEffectStats()
+hall_effect_stats  = hallEffectStats()
 second_thread = _thread.start_new_thread(hall_effect_stats.monitor, ())
 
 check = array.array('I', [0, 0, 0, 0])
@@ -177,9 +175,8 @@ async def lcd_screen(hall_effect_stats, check):
                     display.clear()
                     
                 display.set_pen(BLACK)
-                display.rectangle(170, 40, 150, 185)
+                display.rectangle(10, 40, 200, 20)
                 display.set_pen(WHITE)
-                
                 display.text("Today", 110, 10, 320, 4)
                 display.text("Distance:", 10, 60, 320, 3)
                 display.text(str(round(hall_effect_stats.distance_today)) + " m", 180, 60, 320, 3)
