@@ -278,8 +278,17 @@ class hallEffectStats:
                 elif start_time != 0:
                     time_elap = time.ticks_diff(time.ticks_us(),start_time) # Time elapsed since last start time of RPM measurement
                     
+                    
                     # If time elapsed since last start time of RPM measurement is greater than threshold value
-                    if time_elap > threshold and self.run_rots != 0:
+                    
+                    # If run had zero rotations
+                    if time_elap > threshold and self.run_rots == 0:
+                        # Resetting run stats
+                        start_time = 0
+                        time_elap = 0
+                        
+                    # If run had rotations
+                    elif time_elap > threshold and self.run_rots != 0:
                         # Ending run and recording run data
                         end_run_time = time.ticks_ms()
                         self.run_duration = time.ticks_diff(end_run_time, start_run_time) / 1e3 - time_elap / 1e6
