@@ -57,4 +57,4 @@ def settime():
         t = t + 3600 # Add one hour
         tm = time.gmtime(t)
     
-    machine.RTC().datetime((tm[0], tm[1], tm[2], tm[6] + 1, tm[3], tm[4], tm[5], 0))
+    machine.RTC().datetime((tm[0], tm[1], tm[2], tm[6], tm[3], tm[4], tm[5], 0))

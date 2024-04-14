@@ -266,14 +266,14 @@ class hallEffectStats:
                     if dst_check == "Mar":
                         # If 1am
                         if self.date[3] == 1:
-                            ntptime.settime() # Reset time
+                            machine.RTC().datetime((tm[0], tm[1], tm[2], tm[6], 2, 0, 0, 0))
                             dst_check = "" # Reset dst_check
                     
                     # If last Sunday in October:
                     elif dst_check == "Oct":
                         # If 2am
                         if self.date[3] == 2:
-                            ntptime.settime() # Reset time
+                            machine.RTC().datetime((tm[0], tm[1], tm[2], tm[6], 1, 0, 0, 0))
                             dst_check = "" # Reset dst_check
                     
                     # Resets recent stats according to how the date has changed
@@ -292,9 +292,9 @@ class hallEffectStats:
                         mar_day_dst = (31 - (int(5 * self.date[0]/4 + 4)) % 7)
                         oct_day_dst = (31 - (int(5 * self.date[0]/4 + 1)) % 7)
                         
-                        if self.date[2] == mar_day_dst:
+                        if self.date[1] == 3 and self.date[2] == mar_day_dst:
                             dst_check = "Mar"
-                        elif self.date[2] == oct_day_dst:
+                        elif self.date[1] == 10 and self.date[2] == oct_day_dst:
                             dst_check = "Oct"
                     
                     self.last_run_time = time.ticks_diff(time.ticks_ms(), end_run_time)
