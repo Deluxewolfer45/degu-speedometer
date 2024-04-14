@@ -266,14 +266,14 @@ class hallEffectStats:
                     if dst_check == "Mar":
                         # If 1am
                         if self.date[3] == 1:
-                            machine.RTC().datetime((tm[0], tm[1], tm[2], tm[6], 2, 0, 0, 0))
+                            machine.RTC().datetime((self.date[0], self.date[1], self.date[2], self.date[6], 2, 0, 0, 0))
                             dst_check = "" # Reset dst_check
                     
                     # If last Sunday in October:
                     elif dst_check == "Oct":
                         # If 2am
                         if self.date[3] == 2:
-                            machine.RTC().datetime((tm[0], tm[1], tm[2], tm[6], 1, 0, 0, 0))
+                            machine.RTC().datetime((self.date[0], self.date[1], self.date[2], self.date[6], 1, 0, 0, 0))
                             dst_check = "" # Reset dst_check
                     
                     # Resets recent stats according to how the date has changed
